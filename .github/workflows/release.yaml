@@ -45,6 +45,7 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
+      - uses: sigstore/cosign-installer@main
       # - name: Push Helm chart to OCI compatible registry (Github)
       #   uses: bsord/helm-push@v4.1.0
       #   with:
@@ -55,7 +56,6 @@ jobs:
       #     force: true
       #     chart-folder: charts/capmvm
 
-      # - uses: sigstore/cosign-installer@main
 
       # - name: Sign the images
       #   run: |
