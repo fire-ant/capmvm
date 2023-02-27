@@ -14,7 +14,7 @@ tasks:
     cmds:
       - mkdir dist
       - echo $CR_PAT | helm registry login ghcr.io --username $OWNER --password-stdin
-      - helm package signed-helm-chart --destination dist
+      - helm package charts/capmvm --destination dist
       - helm push dist/signed-helm-chart-*.tgz ghcr.io/fire-ant/capmvm/ > .digest
       - cat .digest | awk -F "[, ]+" '/Digest/{print $NF}'
       - cosign sign ghcr.io/fire-ant/capmvm@$(cat .digest | awk -F "[, ]+" '/Digest/{print $NF}')
