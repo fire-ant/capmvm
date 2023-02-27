@@ -55,7 +55,7 @@ jobs:
           username: fire-ant
           access-token: ${{ secrets.REGISTRY_TOKEN }}
           force: true
-          chart-folder: charts
+          chart-folder: charts/capmvm
 
       - uses: sigstore/cosign-installer@main
 
