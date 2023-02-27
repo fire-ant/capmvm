@@ -1,0 +1,21 @@
+controllerManager:
+  manager:
+    image:
+      repository: ghcr.io/weaveworks-liquidmetal/cluster-api-provider-microvm
+      tag: v0.8.0
+    resources:
+      limits:
+        cpu: 100m
+        memory: 30Mi
+      requests:
+        cpu: 100m
+        memory: 20Mi
+    # extraArgs: # example of appending args to list
+    #   - "test-arg"
+  replicas: 1
+kubernetesClusterDomain: cluster.local
+webhookService:
+  ports:
+  - port: 443
+    targetPort: webhook-server
+  type: ClusterIP
