@@ -12,6 +12,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      packages: write
 
     steps:
       - name: Checkout
@@ -19,12 +20,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Login to GitHub
-        uses: docker/login-action@v1.9.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Task
+        uses: arduino/setup-task@v1
 
       - name: Configure Git
         run: |
@@ -48,26 +45,32 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Push Helm chart to OCI compatible registry (Github)
-        uses: bsord/helm-push@v4.1.0
-        with:
-          useOCIRegistry: true
-          registry-url:  oci://ghcr.io/${{ github.repository }}
-          username: fire-ant
-          access-token: ${{ secrets.REGISTRY_TOKEN }}
-          force: true
-          chart-folder: charts/capmvm
+      # - name: Push Helm chart to OCI compatible registry (Github)
+      #   uses: bsord/helm-push@v4.1.0
+      #   with:
+      #     useOCIRegistry: true
+      #     registry-url:  oci://ghcr.io/${{ github.repository }}
+      #     username: fire-ant
+      #     access-token: ${{ secrets.REGISTRY_TOKEN }}
+      #     force: true
+      #     chart-folder: charts/capmvm
 
-      - uses: sigstore/cosign-installer@main
+      # - uses: sigstore/cosign-installer@main
 
-      - name: Sign the images
-        run: |
-          cosign sign \
-            oci://ghcr.io/${{ github.repository }}
+      # - name: Sign the images
+      #   run: |
+      #     cosign sign \
+      #       oci://ghcr.io/${{ github.repository }}
+      #   env:
+      #     COSIGN_EXPERIMENTAL: 1
+
+      # - name: Verify the pushed tags
+      #   run: cosign verify oci://ghcr.io/${{ github.repository }}
+      #   env:
+      #     COSIGN_EXPERIMENTAL: 1
+
+      - name: Build the helm chart and sign the oci image
+        run: task
         env:
-          COSIGN_EXPERIMENTAL: 1
-
-      - name: Verify the pushed tags
-        run: cosign verify oci://ghcr.io/${{ github.repository }}
-        env:
-          COSIGN_EXPERIMENTAL: 1
+          CR_PAT: ${{ secrets.REGISTRY_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
