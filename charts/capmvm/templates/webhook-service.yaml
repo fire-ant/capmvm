@@ -3,8 +3,7 @@ kind: Service
 metadata:
   name: {{ include "infrastructure.fullname" . }}-webhook-service
   labels:
-    cluster.x-k8s.io/provider: infrastructure-microvm
-    clusterctl.cluster.x-k8s.io: ""
+    cluster.x-k8s.io/provider: infrastructure-mvm
   {{- include "infrastructure.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.webhookService.type }}

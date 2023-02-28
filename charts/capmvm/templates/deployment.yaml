@@ -3,8 +3,7 @@ kind: ServiceAccount
 metadata:
   name: {{ include "infrastructure.fullname" . }}-controller-manager
   labels:
-    cluster.x-k8s.io/provider: infrastructure-microvm
-    clusterctl.cluster.x-k8s.io: ""
+    cluster.x-k8s.io/provider: infrastructure-mvm
     control-plane: controller-manager
   {{- include "infrastructure.labels" . | nindent 4 }}
 ---
@@ -13,8 +12,7 @@ kind: Deployment
 metadata:
   name: {{ include "infrastructure.fullname" . }}-controller-manager
   labels:
-    cluster.x-k8s.io/provider: infrastructure-microvm
-    clusterctl.cluster.x-k8s.io: ""
+    cluster.x-k8s.io/provider: infrastructure-mvm
     control-plane: controller-manager
   {{- include "infrastructure.labels" . | nindent 4 }}
 spec:
@@ -36,7 +34,7 @@ spec:
           preferredDuringSchedulingIgnoredDuringExecution:
           - preference:
               matchExpressions:
-              - key: node-role.kubernetes.io/control-plane
+              - key: ${K8S_CP_LABEL:=node-role.kubernetes.io/control-plane}
                 operator: Exists
             weight: 10
           - preference:

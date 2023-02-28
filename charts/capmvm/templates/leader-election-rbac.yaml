@@ -3,8 +3,7 @@ kind: Role
 metadata:
   name: {{ include "infrastructure.fullname" . }}-leader-election-role
   labels:
-    cluster.x-k8s.io/provider: infrastructure-microvm
-    clusterctl.cluster.x-k8s.io: ""
+    cluster.x-k8s.io/provider: infrastructure-mvm
   {{- include "infrastructure.labels" . | nindent 4 }}
 rules:
 - apiGroups:
@@ -44,8 +43,7 @@ kind: RoleBinding
 metadata:
   name: {{ include "infrastructure.fullname" . }}-leader-election-rolebinding
   labels:
-    cluster.x-k8s.io/provider: infrastructure-microvm
-    clusterctl.cluster.x-k8s.io: ""
+    cluster.x-k8s.io/provider: infrastructure-mvm
   {{- include "infrastructure.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
