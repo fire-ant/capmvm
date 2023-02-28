@@ -28,6 +28,18 @@ entries:
     urls:
     - https://github.com/scottrigby/charts-repo-test/releases/download/alpine-0.1.1/alpine-0.1.1.tgz
     version: 0.1.1
+  capmvm:
+  - apiVersion: v2
+    appVersion: 0.8.0
+    created: "2023-02-28T10:58:11.320269234Z"
+    description: A Helm Chart for the cluster-api-provider-microvm infrastructure
+      provider
+    digest: 3b0263653e03fc1d3d15b70a056d25244ba5f5e9aa5e0af4e6a4c1f00888f7d3
+    name: capmvm
+    type: application
+    urls:
+    - https://github.com/fire-ant/capmvm/releases/download/capmvm-0.8.0/capmvm-0.8.0.tgz
+    version: 0.8.0
   dependencies:
   - apiVersion: v1
     appVersion: "1.0"
@@ -563,4 +575,4 @@ entries:
     urls:
     - https://github.com/helm/charts-repo-actions-demo/releases/download/example-v2-0.2.2/example-v2-0.2.2.tgz
     version: 0.2.2
-generated: "2022-03-30T08:28:10.310585337Z"
+generated: "2023-02-28T10:58:11.320612234Z"
