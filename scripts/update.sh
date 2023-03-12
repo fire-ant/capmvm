@@ -19,6 +19,7 @@ mkdir -p ${dest}
 wget -q https://github.com/${target}/releases/download/${release_tag}/${component} -O ${stub}/${component}
 rm -rf ${dest}/${chartname}
 
+cat ${stub}/${component} | yq -i 'select( .kind == "Deployment") |  .spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].preference.matchExpressions[0].key = "node-role.kubernetes.io/control-plane"'
 cat ${stub}/${component} | secretref="${secretref}" yq 'select(.metadata.name !=env(secretref))' | helmify -crd-dir ${dest}/${chartname}
 base="${release_tag}"                                   yq -i '(.version=strenv(base))'   ${dest}/${chartname}/${chart}
 app="${release_tag}"                                     yq -i '(.appVersion=strenv(app))' ${dest}/${chartname}/${chart}
