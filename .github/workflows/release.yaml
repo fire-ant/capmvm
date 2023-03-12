@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  CHARTNAME: capi-operator
+  CHARTNAME: capmvm
 
 jobs:
   release:
