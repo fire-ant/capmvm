@@ -5,7 +5,7 @@ on: pull_request
 env:
   CM_NAME: cert-manager
   CM_VERSION: 1.10.0
-  CHART: capi-operator
+  CHART: capmvm
 
 jobs:
   lint-test:

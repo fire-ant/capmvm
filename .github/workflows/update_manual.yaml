@@ -7,9 +7,9 @@ on:
         description: release
         default: v0.1.0
 env:
-  TARGET: kubernetes-sigs/cluster-api-operator
-  PROVIDER: operator
-  CHARTNAME: capi-operator
+  TARGET: weaveworks-liquidmetal/cluster-api-provider-microvm
+  PROVIDER: infrastructure
+  CHARTNAME: capmvm
   SECRETREF: dummy
   MAINTAINER: chris@weave.works
   OWNER: chris
