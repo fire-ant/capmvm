@@ -1,16 +1,15 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ include "infrastructure.fullname" . }}-serving-cert
+  name: {{ include "capmvm.fullname" . }}-serving-cert
   labels:
-  {{- include "infrastructure.labels" . | nindent 4 }}
+  {{- include "capmvm.labels" . | nindent 4 }}
 spec:
   dnsNames:
-  - '{{ include "infrastructure.fullname" . }}-webhook-service.{{ .Release.Namespace
-    }}.svc'
-  - '{{ include "infrastructure.fullname" . }}-webhook-service.{{ .Release.Namespace
-    }}.svc.{{ .Values.kubernetesClusterDomain }}'
+  - '{{ include "capmvm.fullname" . }}-webhook-service.{{ .Release.Namespace }}.svc'
+  - '{{ include "capmvm.fullname" . }}-webhook-service.{{ .Release.Namespace }}.svc.{{
+    .Values.kubernetesClusterDomain }}'
   issuerRef:
     kind: Issuer
-    name: '{{ include "infrastructure.fullname" . }}-selfsigned-issuer'
+    name: '{{ include "capmvm.fullname" . }}-selfsigned-issuer'
   secretName: capmvm-webhook-service-cert
